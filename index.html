@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--  Google Font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <!--  Favicon Icon  -->
+    <link rel="shortcut icon" href="./img/clock.png" type="image/x-icon">
+    <!--  External CSS File  -->
+    <link rel="stylesheet" href="./style.css">
+    <title>Digital Clock | Using Row JavaScript</title>
+</head>
+<body>
+<!--  HTML Structure Start  -->
+<section id="main">
+    <div class="clock">
+        <div class="container">
+            <h2 id="hour">00</h2>
+            <h2 class="dot">:</h2>
+            <h2 id="minute">00</h2>
+            <h2 class="dot">:</h2>
+            <h2 id="second">00</h2>
+            <span id="ampm">AM</span>
+        </div>
+    </div>
+</section>
+<!--  HTML Structure End  -->
+
+<!-- JavaScript Code -->
+<script>
+    /**
+     * Problem: Building a Digital Clock using JavaScript.
+     * Solved by: Md Shakhawat Hossen
+     */
+
+    /**
+     * Define the function to get Current time
+     * Return Hour, Minute and Seconds in the HTML tag using innerHTML
+     */
+    function clock() {
+        // Get the Current time in "now" variable
+        const now = new Date();
+        let hours = now.getHours(); // Get hour
+        let minutes = now.getMinutes(); // Get minute
+        let seconds = now.getSeconds(); // Get second
+        let ampm = 'AM'; // Set the AM PM Indicator 'AM' by default
+
+        // Convert 24 Hour time to 12-Hour Format with AM PM Indicator
+        if (hours > 12) {
+            hours = hours - 12; // If hour greater than 12 then from present hour - 12
+            ampm = 'PM' // And set AM PM Indicator 'PM'
+        }
+
+        // Add 0 to the beginning of number if the number less than 10
+        hours = (hours < 10) ? `0${hours}` : hours;
+        minutes = (minutes < 10) ? `0${minutes}` : minutes;
+        seconds = (seconds < 10) ? `0${seconds}` : seconds;
+
+        // Update the HTML content of four elements on the page with the current time information Using innerHTML.
+        document.getElementById('hour').innerHTML = hours.toString(); // Display the Hour
+        document.getElementById('minute').innerHTML = minutes.toString(); // Display the Minute
+        document.getElementById('second').innerHTML = seconds.toString(); // Display the Seconds
+        document.getElementById('ampm').innerHTML = ampm // Displays the current time period (either 'AM' or 'PM') as a string
+
+        /**
+         * Special Note:
+         * Using toString() on hour, minute and seconds because we can't assign a value of the type "Number" to a variable or property that has been defined as having a type of "String"
+         */
+    }
+
+    // Call clock() once to update the clock immediately
+    clock();
+
+    // Call clock() every second using setInterval()
+    setInterval(clock, 1000);
+</script>
+
+</body>
+</html>
